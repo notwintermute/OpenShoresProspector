@@ -2,7 +2,7 @@ HazeronProspector
 ==============
 
 System survey XML search tool for [Shores of Hazeron](https://www.hazeron.com/).
-
+Originally made by **Deantwo**, updated for OpenShores by Notwintermute
 Introduction
 ==============
 
