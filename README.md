@@ -2,10 +2,10 @@ HazeronProspector
 ==============
 
 System survey XML search tool for [Shores of Hazeron](https://www.hazeron.com/).
-Originally made by **Deantwo**, updated for OpenShores by Notwintermute
 Introduction
 ==============
 
+Updated for [OpenShores](https://openshores.net/) by Notwintermute
 My name is **Deantwo** and here is another one of my small open-source C# projects.
 Took me a while to figure out how to read the StarMap XML, but it paid off!
 I have taken a lot of my inspiration from Hazeron Scouter, so some credit goes to OhiraKyou.
