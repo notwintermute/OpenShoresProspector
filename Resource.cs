@@ -44,6 +44,14 @@ namespace HazeronProspector
         Cryozine,
         Hydrogen,
         Ioplasma,
+        NaturalGas,
+        Kryomethane,
+        Nebulex,
+        Xenocarbide,
+        TachyonPrecipitate,
+        Zerotrium,
+        ThermoclineBrine,
+        MetallicHydrogen,
         Oil,
         Phlogiston,
         Polytaride,
@@ -103,6 +111,7 @@ namespace HazeronProspector
                 case ResourceType.Lumenite:
                 case ResourceType.Minerals:
                 case ResourceType.Ore:
+                case ResourceType.NaturalGas:
                 case ResourceType.Radioactives:
                 case ResourceType.Stone:
                 case ResourceType.Vulcanite:
@@ -116,6 +125,13 @@ namespace HazeronProspector
                 case ResourceType.Cryozine:
                 case ResourceType.Hydrogen:
                 case ResourceType.Ioplasma:
+                case ResourceType.Kryomethane:
+                case ResourceType.Nebulex:
+                case ResourceType.Xenocarbide:
+                case ResourceType.TachyonPrecipitate:
+                case ResourceType.Zerotrium:
+                case ResourceType.ThermoclineBrine:
+                case ResourceType.MetallicHydrogen:
                 case ResourceType.AntifluxParticles:
                 case ResourceType.BorexinoPrecipitate:
                     return ResourceCategory.Atmosphere;
@@ -286,6 +302,9 @@ namespace HazeronProspector
                 case "Gold Ore":
                     _type = ResourceType.GoldOre;
                     break;
+                case "Natural Gas":
+                    _type = ResourceType.NaturalGas;
+                    break;
                 case "Ice":
                     _type = ResourceType.Ice;
                     break;
@@ -318,6 +337,27 @@ namespace HazeronProspector
                     break;
                 case "Ioplasma":
                     _type = ResourceType.Ioplasma;
+                    break;
+                case "Kryomethane":
+                    _type = ResourceType.Kryomethane;
+                    break;
+                case "Nebulex":
+                    _type = ResourceType.Nebulex;
+                    break;
+                case "Xenocarbide":
+                    _type = ResourceType.Xenocarbide;
+                    break;
+                case "Tachyon Precipitate":
+                    _type = ResourceType.TachyonPrecipitate;
+                    break;
+                case "Zerotrium":
+                    _type = ResourceType.Zerotrium;
+                    break;
+                case "Thermocline Brine":
+                    _type = ResourceType.ThermoclineBrine;
+                    break;
+                case "Metallic Hydrogen":
+                    _type = ResourceType.MetallicHydrogen;
                     break;
                 case "Oil":
                     _type = ResourceType.Oil;

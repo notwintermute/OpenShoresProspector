@@ -424,6 +424,9 @@ namespace HazeronProspector
                             case CelestialBodyOrbit.Frigid:
                                 row.Cells["dgvSurveyColumnOrbit"].Value = "Frigid";
                                 break;
+                            case CelestialBodyOrbit.Penumbral:
+                                row.Cells["dgvSurveyColumnOrbit"].Value = "Penumbral";
+                                break;
                         }
                         row.Cells["dgvSurveyColumnCoordinates"].Value = system.Coord;
                         switch (planet.Type)

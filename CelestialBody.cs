@@ -28,7 +28,8 @@ namespace HazeronProspector
         Inner,
         Habitable,
         Outer,
-        Frigid
+        Frigid,
+        Penumbral
     }
 
     public class CelestialBody
@@ -197,6 +198,9 @@ namespace HazeronProspector
                     break;
                 case "Frigid Zone":
                     _orbit = CelestialBodyOrbit.Frigid;
+                    break;
+                case "Penumbral Zone":
+                    _orbit = CelestialBodyOrbit.Penumbral;
                     break;
                 default:
                     throw new Exception($"Unknown orbit: '{orbit}'");

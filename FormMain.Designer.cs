@@ -106,6 +106,14 @@
             this.dgvSurveyColumnResourceAir = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceCryozine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceHydrogen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceNaturalGas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceKryomethane = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceNebulex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceXenocarbide = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceTachyonPrecipitate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceZerotrium = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceThermoclineBrine = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceMetallicHydrogen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceIoplasma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceOil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourcePhlogiston = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -610,6 +618,14 @@
             this.dgvSurveyColumnResourceAir,
             this.dgvSurveyColumnResourceCryozine,
             this.dgvSurveyColumnResourceHydrogen,
+            this.dgvSurveyColumnResourceNaturalGas,
+            this.dgvSurveyColumnResourceKryomethane,
+            this.dgvSurveyColumnResourceNebulex,
+            this.dgvSurveyColumnResourceXenocarbide,
+            this.dgvSurveyColumnResourceTachyonPrecipitate,
+            this.dgvSurveyColumnResourceZerotrium,
+            this.dgvSurveyColumnResourceThermoclineBrine,
+            this.dgvSurveyColumnResourceMetallicHydrogen,
             this.dgvSurveyColumnResourceIoplasma,
             this.dgvSurveyColumnResourceOil,
             this.dgvSurveyColumnResourcePhlogiston,
@@ -876,6 +892,54 @@
             this.dgvSurveyColumnResourceHydrogen.HeaderText = "Hydrogen";
             this.dgvSurveyColumnResourceHydrogen.Name = "dgvSurveyColumnResourceHydrogen";
             this.dgvSurveyColumnResourceHydrogen.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceNaturalGas
+            // 
+            this.dgvSurveyColumnResourceNaturalGas.HeaderText = "Natural Gas";
+            this.dgvSurveyColumnResourceNaturalGas.Name = "dgvSurveyColumnResourceNaturalGas";
+            this.dgvSurveyColumnResourceNaturalGas.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceKryomethane
+            // 
+            this.dgvSurveyColumnResourceKryomethane.HeaderText = "Kryomethane";
+            this.dgvSurveyColumnResourceKryomethane.Name = "dgvSurveyColumnResourceKryomethane";
+            this.dgvSurveyColumnResourceKryomethane.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceNebulex
+            // 
+            this.dgvSurveyColumnResourceNebulex.HeaderText = "Nebulex";
+            this.dgvSurveyColumnResourceNebulex.Name = "dgvSurveyColumnResourceNebulex";
+            this.dgvSurveyColumnResourceNebulex.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceXenocarbide
+            // 
+            this.dgvSurveyColumnResourceXenocarbide.HeaderText = "Xenocarbide";
+            this.dgvSurveyColumnResourceXenocarbide.Name = "dgvSurveyColumnResourceXenocarbide";
+            this.dgvSurveyColumnResourceXenocarbide.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceTachyonPrecipitate
+            // 
+            this.dgvSurveyColumnResourceTachyonPrecipitate.HeaderText = "Tachyon Precipitate";
+            this.dgvSurveyColumnResourceTachyonPrecipitate.Name = "dgvSurveyColumnResourceTachyonPrecipitate";
+            this.dgvSurveyColumnResourceTachyonPrecipitate.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceZerotrium
+            // 
+            this.dgvSurveyColumnResourceZerotrium.HeaderText = "Zerotrium";
+            this.dgvSurveyColumnResourceZerotrium.Name = "dgvSurveyColumnResourceZerotrium";
+            this.dgvSurveyColumnResourceZerotrium.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceThermoclineBrine
+            // 
+            this.dgvSurveyColumnResourceThermoclineBrine.HeaderText = "Thermocline Brine";
+            this.dgvSurveyColumnResourceThermoclineBrine.Name = "dgvSurveyColumnResourceThermoclineBrine";
+            this.dgvSurveyColumnResourceThermoclineBrine.ReadOnly = true;
+            // 
+            // dgvSurveyColumnResourceMetallicHydrogen
+            // 
+            this.dgvSurveyColumnResourceMetallicHydrogen.HeaderText = "Metallic Hydrogen";
+            this.dgvSurveyColumnResourceMetallicHydrogen.Name = "dgvSurveyColumnResourceMetallicHydrogen";
+            this.dgvSurveyColumnResourceMetallicHydrogen.ReadOnly = true;
             // 
             // dgvSurveyColumnResourceIoplasma
             // 
@@ -1164,6 +1228,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceAir;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceCryozine;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceHydrogen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceNaturalGas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceKryomethane;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceNebulex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceXenocarbide;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceTachyonPrecipitate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceZerotrium;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceThermoclineBrine;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceMetallicHydrogen;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceIoplasma;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceOil;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourcePhlogiston;
