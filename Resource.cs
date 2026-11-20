@@ -52,6 +52,7 @@ namespace HazeronProspector
         Zerotrium,
         ThermoclineBrine,
         MetallicHydrogen,
+        Neutronium, 
         Oil,
         Phlogiston,
         Polytaride,
@@ -130,6 +131,7 @@ namespace HazeronProspector
                 case ResourceType.Xenocarbide:
                 case ResourceType.TachyonPrecipitate:
                 case ResourceType.Zerotrium:
+                case ResourceType.Neutronium:
                 case ResourceType.ThermoclineBrine:
                 case ResourceType.MetallicHydrogen:
                 case ResourceType.AntifluxParticles:
@@ -353,6 +355,9 @@ namespace HazeronProspector
                 case "Zerotrium":
                     _type = ResourceType.Zerotrium;
                     break;
+                case "Neutronium":
+                    _type = ResourceType.Neutronium;
+                    break;    
                 case "Thermocline Brine":
                     _type = ResourceType.ThermoclineBrine;
                     break;

@@ -64,6 +64,8 @@
             this.nudFilterWormhole = new System.Windows.Forms.NumericUpDown();
             this.rabFilterRange = new System.Windows.Forms.RadioButton();
             this.lblFilter = new System.Windows.Forms.Label();
+            this.lblMinResourceQuality = new System.Windows.Forms.Label();
+            this.nudMinResourceQuality = new System.Windows.Forms.NumericUpDown();
             this.lblGalaxySelection = new System.Windows.Forms.Label();
             this.cobSelectionGalaxy = new System.Windows.Forms.ComboBox();
             this.btnImportMerger = new System.Windows.Forms.Button();
@@ -112,6 +114,7 @@
             this.dgvSurveyColumnResourceXenocarbide = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceTachyonPrecipitate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceZerotrium = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSurveyColumnResourceNeutronium = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceThermoclineBrine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceMetallicHydrogen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSurveyColumnResourceIoplasma = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -150,6 +153,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinResourceQuality)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFilterWormhole)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFilterRange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSurvey)).BeginInit();
@@ -296,7 +300,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 437);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 462);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(662, 24);
             this.statusStrip1.TabIndex = 1;
@@ -323,7 +327,7 @@
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(3, 381);
+            this.btnSearch.Location = new System.Drawing.Point(3, 404);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(88, 21);
             this.btnSearch.TabIndex = 60;
@@ -413,6 +417,8 @@
             this.splitContainer1.Panel1.Controls.Add(this.nudFilterWormhole);
             this.splitContainer1.Panel1.Controls.Add(this.rabFilterRange);
             this.splitContainer1.Panel1.Controls.Add(this.lblFilter);
+            this.splitContainer1.Panel1.Controls.Add(this.lblMinResourceQuality);
+            this.splitContainer1.Panel1.Controls.Add(this.nudMinResourceQuality);
             this.splitContainer1.Panel1.Controls.Add(this.lblGalaxySelection);
             this.splitContainer1.Panel1.Controls.Add(this.cobSelectionGalaxy);
             this.splitContainer1.Panel1.Controls.Add(this.btnImportMerger);
@@ -429,7 +435,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvSurvey);
-            this.splitContainer1.Size = new System.Drawing.Size(662, 407);
+            this.splitContainer1.Size = new System.Drawing.Size(662, 432);
             this.splitContainer1.SplitterDistance = 98;
             this.splitContainer1.TabIndex = 9;
             // 
@@ -437,7 +443,7 @@
             // 
             this.cbxOptionsSystemWide.AutoCheck = false;
             this.cbxOptionsSystemWide.AutoSize = true;
-            this.cbxOptionsSystemWide.Location = new System.Drawing.Point(3, 358);
+            this.cbxOptionsSystemWide.Location = new System.Drawing.Point(3, 381);
             this.cbxOptionsSystemWide.Name = "cbxOptionsSystemWide";
             this.cbxOptionsSystemWide.Size = new System.Drawing.Size(85, 17);
             this.cbxOptionsSystemWide.TabIndex = 50;
@@ -448,7 +454,7 @@
             // lblOptions
             // 
             this.lblOptions.AutoSize = true;
-            this.lblOptions.Location = new System.Drawing.Point(3, 342);
+            this.lblOptions.Location = new System.Drawing.Point(3, 365);
             this.lblOptions.Name = "lblOptions";
             this.lblOptions.Size = new System.Drawing.Size(46, 13);
             this.lblOptions.TabIndex = 1;
@@ -472,7 +478,7 @@
             // 
             this.rabFilterWormhole.AutoCheck = false;
             this.rabFilterWormhole.AutoSize = true;
-            this.rabFilterWormhole.Location = new System.Drawing.Point(3, 296);
+            this.rabFilterWormhole.Location = new System.Drawing.Point(3, 286);
             this.rabFilterWormhole.Name = "rabFilterWormhole";
             this.rabFilterWormhole.Size = new System.Drawing.Size(78, 17);
             this.rabFilterWormhole.TabIndex = 43;
@@ -483,10 +489,9 @@
             // 
             // nudFilterWormhole
             // 
-            this.nudFilterWormhole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.nudFilterWormhole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudFilterWormhole.Location = new System.Drawing.Point(3, 319);
+            this.nudFilterWormhole.Location = new System.Drawing.Point(3, 307);
             this.nudFilterWormhole.Maximum = new decimal(new int[] {
             10,
             0,
@@ -501,7 +506,7 @@
             // 
             this.rabFilterRange.AutoCheck = false;
             this.rabFilterRange.AutoSize = true;
-            this.rabFilterRange.Location = new System.Drawing.Point(3, 247);
+            this.rabFilterRange.Location = new System.Drawing.Point(3, 242);
             this.rabFilterRange.Name = "rabFilterRange";
             this.rabFilterRange.Size = new System.Drawing.Size(78, 17);
             this.rabFilterRange.TabIndex = 41;
@@ -518,6 +523,30 @@
             this.lblFilter.Size = new System.Drawing.Size(32, 13);
             this.lblFilter.TabIndex = 12;
             this.lblFilter.Text = "Filter:";
+            // 
+            // lblMinResourceQuality
+            // 
+            this.lblMinResourceQuality.AutoSize = true;
+            this.lblMinResourceQuality.Location = new System.Drawing.Point(3, 344);
+            this.lblMinResourceQuality.Name = "lblMinResourceQuality";
+            this.lblMinResourceQuality.Size = new System.Drawing.Size(36, 13);
+            this.lblMinResourceQuality.TabIndex = 45;
+            this.lblMinResourceQuality.Text = "Min Q:";
+            // 
+            // nudMinResourceQuality
+            // 
+            this.nudMinResourceQuality.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudMinResourceQuality.Location = new System.Drawing.Point(42, 340);
+            this.nudMinResourceQuality.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudMinResourceQuality.Name = "nudMinResourceQuality";
+            this.nudMinResourceQuality.Size = new System.Drawing.Size(49, 20);
+            this.nudMinResourceQuality.TabIndex = 46;
+            this.nudMinResourceQuality.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblGalaxySelection
             // 
@@ -574,10 +603,9 @@
             // 
             // nudFilterRange
             // 
-            this.nudFilterRange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.nudFilterRange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudFilterRange.Location = new System.Drawing.Point(3, 270);
+            this.nudFilterRange.Location = new System.Drawing.Point(3, 265);
             this.nudFilterRange.Name = "nudFilterRange";
             this.nudFilterRange.Size = new System.Drawing.Size(88, 20);
             this.nudFilterRange.TabIndex = 42;
@@ -624,6 +652,7 @@
             this.dgvSurveyColumnResourceXenocarbide,
             this.dgvSurveyColumnResourceTachyonPrecipitate,
             this.dgvSurveyColumnResourceZerotrium,
+            this.dgvSurveyColumnResourceNeutronium,
             this.dgvSurveyColumnResourceThermoclineBrine,
             this.dgvSurveyColumnResourceMetallicHydrogen,
             this.dgvSurveyColumnResourceIoplasma,
@@ -929,6 +958,12 @@
             this.dgvSurveyColumnResourceZerotrium.Name = "dgvSurveyColumnResourceZerotrium";
             this.dgvSurveyColumnResourceZerotrium.ReadOnly = true;
             // 
+            // dgvSurveyColumnResourceNeutronium
+            // 
+            this.dgvSurveyColumnResourceNeutronium.HeaderText = "Neutronium";
+            this.dgvSurveyColumnResourceNeutronium.Name = "dgvSurveyColumnResourceNeutronium";
+            this.dgvSurveyColumnResourceNeutronium.ReadOnly = true;
+            // 
             // dgvSurveyColumnResourceThermoclineBrine
             // 
             this.dgvSurveyColumnResourceThermoclineBrine.HeaderText = "Thermocline Brine";
@@ -1125,7 +1160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 461);
+            this.ClientSize = new System.Drawing.Size(662, 486);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -1141,6 +1176,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinResourceQuality)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFilterWormhole)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFilterRange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSurvey)).EndInit();
@@ -1189,6 +1225,8 @@
         private System.Windows.Forms.NumericUpDown nudFilterWormhole;
         private System.Windows.Forms.RadioButton rabFilterRange;
         private System.Windows.Forms.Label lblFilter;
+        private System.Windows.Forms.Label lblMinResourceQuality;
+        private System.Windows.Forms.NumericUpDown nudMinResourceQuality;
         private System.Windows.Forms.RadioButton rabFilterNone;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem cmsRightClickHideRow;
@@ -1234,6 +1272,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceXenocarbide;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceTachyonPrecipitate;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceZerotrium;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceNeutronium;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceThermoclineBrine;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceMetallicHydrogen;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvSurveyColumnResourceIoplasma;

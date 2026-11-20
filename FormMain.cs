@@ -74,6 +74,7 @@ namespace HazeronProspector
             rabFilterNone.Enabled = enable;
             rabFilterRange.Enabled = enable;
             rabFilterWormhole.Enabled = enable;
+            nudMinResourceQuality.Enabled = enable;
             if (enable)
                 rabFilter_Click(rabFilterNone, null);
             else
@@ -235,6 +236,12 @@ namespace HazeronProspector
                         }
                     }
                 }
+            }
+
+            if (nudMinResourceQuality.Value > 0)
+            {
+                selectedSystems.RemoveAll(system =>
+                    !system.BestResources().Values.Any(resource => resource.Quality >= nudMinResourceQuality.Value));
             }
 
             toolStripProgressBar1.Value = 0;
