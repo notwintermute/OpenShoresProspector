@@ -9,11 +9,11 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HazeronProspector
+namespace OpenShoresProspector
 {
     public partial class FormMain : Form
     {
-        HazeronStarMapReader _hStarMap;
+        OpenShoresStarMapReader _hStarMap;
 
         Coordinate coord;
 
@@ -23,9 +23,34 @@ namespace HazeronProspector
 
         bool _optionSystemWide = false;
 
+        readonly string[] _redactedColumnNames =
+        {
+            "dgvSurveyColumnSector",
+            "dgvSurveyColumnSystem",
+            "dgvSurveyColumnSystemCatalog",
+            "dgvSurveyColumnWorld",
+            "dgvSurveyColumnCoordinates"
+        };
+
         public FormMain()
         {
             InitializeComponent();
+            // hey idris when you see this finish making the colors in the application hazeron themed
+            splitContainer1.Panel1.BackColor = Color.FromArgb(255, 255,255,255); // color of the left window background
+            splitContainer1.Panel1.ForeColor = Color.Black; // color of the text next to buttons and boxes in the left window
+            menuStrip1.ForeColor = Color.Black; // "File Option About Debug" text and its drop downs
+
+            cobFilterOrbit.Items.Add("All");
+            cobFilterOrbit.Items.AddRange(new object[]
+            {
+                CelestialBodyOrbit.Inferno,
+                CelestialBodyOrbit.Inner,
+                CelestialBodyOrbit.Habitable,
+                CelestialBodyOrbit.Outer,
+                CelestialBodyOrbit.Frigid,
+                CelestialBodyOrbit.Penumbral
+            });
+            cobFilterOrbit.SelectedIndex = 0;
 
 #if DEBUG
             this.Text += " (DEBUG MODE)";
@@ -41,7 +66,7 @@ namespace HazeronProspector
             toolStripProgressBar1.Visible = false;
 
             openFileDialog1.FileName = "<empire> Star Map";
-            openFileDialog1.Filter = "Hazeron XML Star Map|*.xml|All files|*.*";
+            openFileDialog1.Filter = "OpenShores XML Star Map|*.xml|All files|*.*";
             //openFileDialog1.InitialDirectory = Application.StartupPath;
 
             toolStripStatusLabel1.Text = "No star map";
@@ -75,6 +100,7 @@ namespace HazeronProspector
             rabFilterRange.Enabled = enable;
             rabFilterWormhole.Enabled = enable;
             nudMinResourceQuality.Enabled = enable;
+            cobFilterOrbit.Enabled = enable;
             if (enable)
                 rabFilter_Click(rabFilterNone, null);
             else
@@ -92,7 +118,7 @@ namespace HazeronProspector
 
             if (openFileDialog1.ShowDialog(this) != System.Windows.Forms.DialogResult.OK)
                 return;
-            _hStarMap = new HazeronStarMapReader();
+            _hStarMap = new OpenShoresStarMapReader();
             _hStarMap.ReadXmlFile(openFileDialog1.FileName);
 
             if (_hStarMap.GalaxyList.Count == 0)
@@ -163,9 +189,9 @@ namespace HazeronProspector
                 {
                     string[] coordinateArray = tbxSelectionCoordinate.Text.Split(new string[] { ", ", " ", "," }, StringSplitOptions.RemoveEmptyEntries);
                     coord = new Coordinate(
-                        Double.Parse(coordinateArray[0], System.Globalization.NumberStyles.Number, Hazeron.NumberFormat),
-                        Double.Parse(coordinateArray[1], System.Globalization.NumberStyles.Number, Hazeron.NumberFormat),
-                        Double.Parse(coordinateArray[2], System.Globalization.NumberStyles.Number, Hazeron.NumberFormat));
+                        Double.Parse(coordinateArray[0], System.Globalization.NumberStyles.Number, OpenShores.NumberFormat),
+                        Double.Parse(coordinateArray[1], System.Globalization.NumberStyles.Number, OpenShores.NumberFormat),
+                        Double.Parse(coordinateArray[2], System.Globalization.NumberStyles.Number, OpenShores.NumberFormat));
                     HSystem system = _hStarMap.SystemList.Values.SingleOrDefault(x => x.Coord.Equals(coord));
                     if (system == null)
                     {
@@ -238,10 +264,12 @@ namespace HazeronProspector
                 }
             }
 
-            if (nudMinResourceQuality.Value > 0)
+            if (SelectedOrbit.HasValue || nudMinResourceQuality.Value > 0)
             {
                 selectedSystems.RemoveAll(system =>
-                    !system.BestResources().Values.Any(resource => resource.Quality >= nudMinResourceQuality.Value));
+                    !system.CelestialBodies.Values.Any(MatchesOrbitFilter)
+                    || (nudMinResourceQuality.Value > 0
+                     && !BestResourcesInSelectedOrbit(system).Any(resource => resource.Quality >= nudMinResourceQuality.Value)));
             }
 
             toolStripProgressBar1.Value = 0;
@@ -354,7 +382,7 @@ namespace HazeronProspector
             foreach (string coordinate in coordinateArray)
             {
                 double none;
-                if (!Double.TryParse(coordinate, System.Globalization.NumberStyles.Number, Hazeron.NumberFormat, out none))
+                if (!Double.TryParse(coordinate, System.Globalization.NumberStyles.Number, OpenShores.NumberFormat, out none))
                 {
                     tbxSelectionCoordinate.ForeColor = Color.Red;
                     _errorCoordinate = true;
@@ -371,6 +399,20 @@ namespace HazeronProspector
             cbxOptionsSystemWide.Checked = _optionSystemWide;
         }
 
+        private void menuStrip1OptionsRedact_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvSurvey.Rows)
+            {
+                Dictionary<string, object> originalValues = (Dictionary<string, object>)row.Tag;
+                foreach (string columnName in _redactedColumnNames)
+                {
+                    row.Cells[columnName].Value = menuStrip1OptionsRedact.Checked
+                        ? "Redacted"
+                        : originalValues[columnName];
+                }
+            }
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             StarMapSearch();
@@ -378,6 +420,30 @@ namespace HazeronProspector
         #endregion
 
         #region DataGridView
+        private CelestialBodyOrbit? SelectedOrbit
+        {
+            get
+            {
+                if (cobFilterOrbit.SelectedIndex <= 0)
+                    return null;
+                return (CelestialBodyOrbit)cobFilterOrbit.SelectedItem;
+            }
+        }
+
+        private bool MatchesOrbitFilter(CelestialBody body)
+        {
+            return !SelectedOrbit.HasValue || body.Orbit == SelectedOrbit.Value;
+        }
+
+        private IEnumerable<Resource> BestResourcesInSelectedOrbit(HSystem system)
+        {
+            return system.CelestialBodies.Values
+                .Where(MatchesOrbitFilter)
+                .SelectMany(body => body.BestResources().Values)
+                .GroupBy(resource => resource.Type)
+                .Select(resources => resources.OrderByDescending(resource => resource.Quality).First());
+        }
+
         private void TableAddSystem(HSystem system)
         {
             dgvSurvey.Columns["dgvSurveyColumnZone"].Visible = _columnVisability["dgvSurveyColumnZone"] && !_optionSystemWide;
@@ -386,33 +452,40 @@ namespace HazeronProspector
 
             if (_optionSystemWide)
             { // SystemWide mode
+                CelestialBody[] matchingBodies = system.CelestialBodies.Values.Where(MatchesOrbitFilter).ToArray();
+                if (matchingBodies.Length == 0)
+                    return;
+
                 dgvSurvey.Rows.Add();
                 DataGridViewRow row = dgvSurvey.Rows[dgvSurvey.RowCount - 1];
                 row.Cells["dgvSurveyColumnGalaxy"].Value = system.HostSector.HostGalaxy;
-                row.Cells["dgvSurveyColumnSector"].Value = system.HostSector;
-                row.Cells["dgvSurveyColumnSystem"].Value = system;
-                row.Cells["dgvSurveyColumnSystemCatalog"].Value = system.CatalogName;
-                row.Cells["dgvSurveyColumnWorld"].Value = system.CelestialBodies.Values.Count(x =>  x.Type != CelestialBodyType.Star && x.Type != CelestialBodyType.Ring) + " worlds (" + system.HabitbleCount() + " habitable)";
+                SetRedactableCell(row, "dgvSurveyColumnSector", system.HostSector);
+                SetRedactableCell(row, "dgvSurveyColumnSystem", system);
+                SetRedactableCell(row, "dgvSurveyColumnSystemCatalog", system.CatalogName);
+                SetRedactableCell(row, "dgvSurveyColumnWorld", matchingBodies.Count(x => x.Type != CelestialBodyType.Star && x.Type != CelestialBodyType.Ring) + " worlds (" + matchingBodies.Count(x => x.IsHabitable) + " habitable)");
                 row.Cells["dgvSurveyColumnOrbit"].Value = system.CelestialBodies.Values.Count(x => x.Type == CelestialBodyType.Star) + " Stars";
-                row.Cells["dgvSurveyColumnCoordinates"].Value = system.Coord;
-                foreach (Resource resource in system.BestResources().Values)
+                SetRedactableCell(row, "dgvSurveyColumnCoordinates", system.Coord);
+                foreach (Resource resource in BestResourcesInSelectedOrbit(system))
                 {
                     TableAddResourceRow(row, resource);
                 }
             }
             else
-            { // Normal HazeronScouter mode
+            { // Normal OpenShoresScouter mode
                 foreach (CelestialBody planet in system.CelestialBodies.Values)
                 {
+                    if (!MatchesOrbitFilter(planet))
+                        continue;
+
                     foreach (Zone zone in planet.ResourceZones)
                     {
                         dgvSurvey.Rows.Add();
                         DataGridViewRow row = dgvSurvey.Rows[dgvSurvey.RowCount - 1];
                         row.Cells["dgvSurveyColumnGalaxy"].Value = system.HostSector.HostGalaxy;
-                        row.Cells["dgvSurveyColumnSector"].Value = system.HostSector;
-                        row.Cells["dgvSurveyColumnSystem"].Value = system;
-                        row.Cells["dgvSurveyColumnSystemCatalog"].Value = system.CatalogName;
-                        row.Cells["dgvSurveyColumnWorld"].Value = planet;
+                        SetRedactableCell(row, "dgvSurveyColumnSector", system.HostSector);
+                        SetRedactableCell(row, "dgvSurveyColumnSystem", system);
+                        SetRedactableCell(row, "dgvSurveyColumnSystemCatalog", system.CatalogName);
+                        SetRedactableCell(row, "dgvSurveyColumnWorld", planet);
                         row.Cells["dgvSurveyColumnZone"].Value = zone;
                         switch (planet.Orbit)
                         {
@@ -435,7 +508,7 @@ namespace HazeronProspector
                                 row.Cells["dgvSurveyColumnOrbit"].Value = "Penumbral";
                                 break;
                         }
-                        row.Cells["dgvSurveyColumnCoordinates"].Value = system.Coord;
+                        SetRedactableCell(row, "dgvSurveyColumnCoordinates", system.Coord);
                         switch (planet.Type)
                         {
                             case CelestialBodyType.Star:
@@ -480,8 +553,24 @@ namespace HazeronProspector
             }
         }
 
+        private void SetRedactableCell(DataGridViewRow row, string columnName, object value)
+        {
+            Dictionary<string, object> originalValues = row.Tag as Dictionary<string, object>;
+            if (originalValues == null)
+            {
+                originalValues = new Dictionary<string, object>();
+                row.Tag = originalValues;
+            }
+
+            originalValues[columnName] = value;
+            row.Cells[columnName].Value = menuStrip1OptionsRedact.Checked ? "Redacted" : value;
+        }
+
         private void TableAddResourceRow(DataGridViewRow row, Resource resource)
         {
+            if (resource.Quality < nudMinResourceQuality.Value)
+                return;
+
             DataGridViewCell cell = row.Cells["dgvSurveyColumnResource" + Enum.GetName(typeof(ResourceType), (int)resource.Type)];
             cell.Value = resource;
             cell.Style.ForeColor = resource.TechLevelColor;
@@ -584,8 +673,8 @@ namespace HazeronProspector
 
         private int CompareNumbers(string value1, string value2)
         {
-            double value1double = Double.Parse(value1, Hazeron.NumberFormat);
-            double value2double = Double.Parse(value2, Hazeron.NumberFormat);
+            double value1double = Double.Parse(value1, OpenShores.NumberFormat);
+            double value2double = Double.Parse(value2, OpenShores.NumberFormat);
             return Math.Sign(value1double.CompareTo(value2double));
         }
 
@@ -788,19 +877,19 @@ namespace HazeronProspector
 
         private void menuStrip1HelpGithub_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"https://github.com/Deantwo/HazeronProspector");
+            System.Diagnostics.Process.Start(@"https://github.com/Deantwo/OpenShoresProspector");
         }
 
         private void menuStrip1HelpThread_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://hazeron.com/mybb/showthread.php?tid=31");
+            System.Diagnostics.Process.Start(@"http://OpenShores.com/mybb/showthread.php?tid=31");
         }
 
         private void menuStrip1HelpAbout_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 "Program:" + Environment.NewLine +
-                "   HazeronProspector" + Environment.NewLine +
+                "   OpenShoresProspector" + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Version:" + Environment.NewLine +
                 "   " + Application.ProductVersion + Environment.NewLine +
@@ -809,20 +898,20 @@ namespace HazeronProspector
                 "   Deantwo" + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Feedback, suggestions, and bug reports should be posted in the forum thread or PMed to Deantwo please."
-                , "About HazeronProspector", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                , "About OpenShoresProspector", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
         private void menuStrip1HelpHowToUse_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 "Export StarMap XML:" + Environment.NewLine +
-                "1.  Log into Hazeron with your character" + Environment.NewLine +
+                "1.  Log into OpenShores with your character" + Environment.NewLine +
                 "2.  Open the Locator window (F7)" + Environment.NewLine +
                 "4.  Go to the Star Map tab" + Environment.NewLine +
                 "5.  Click the \"Explored/Scanned/Detected Space\" button" + Environment.NewLine +
                 "6.  Click the \"Save Starmap\" button" + Environment.NewLine +
                 "7.  Choose a location for the .xml file that you will be able to find later"
-                , "How to use HazeronProspector", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                , "How to use OpenShoresProspector", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
         }
         #endregion
 

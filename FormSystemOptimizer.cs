@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace HazeronProspector
+namespace OpenShoresProspector
 {
     public partial class FormSystemOptimizer : Form
     {
@@ -296,8 +296,8 @@ namespace HazeronProspector
 
         private int CompareNumbers(string value1, string value2)
         {
-            double value1double = Double.Parse(value1, Hazeron.NumberFormat);
-            double value2double = Double.Parse(value2, Hazeron.NumberFormat);
+            double value1double = Double.Parse(value1, OpenShores.NumberFormat);
+            double value2double = Double.Parse(value2, OpenShores.NumberFormat);
             return Math.Sign(value1double.CompareTo(value2double));
         }
 

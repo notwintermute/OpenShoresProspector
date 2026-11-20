@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HazeronProspector
+namespace OpenShoresProspector
 {
     public enum ResourceType
     {
@@ -197,9 +197,9 @@ namespace HazeronProspector
                 else if (_quality < 184)
                     return System.Drawing.Color.Orange;
                 else if (_quality < 248)
-                    return System.Drawing.Color.Green;
+                    return System.Drawing.Color.FromArgb(255, 50, 225, 50);
                 else
-                    return System.Drawing.Color.Blue;
+                    return System.Drawing.Color.Cyan;
             }
         }
 

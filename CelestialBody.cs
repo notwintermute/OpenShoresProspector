@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HazeronProspector
+namespace OpenShoresProspector
 {
     public enum CelestialBodyType
     {
@@ -30,6 +30,31 @@ namespace HazeronProspector
         Outer,
         Frigid,
         Penumbral
+    }
+
+    public enum CelestialBodyAtmosphereDensity
+    {
+        ERROR,
+        Vacuum,
+        Trace,
+        VeryThin,
+        Thin,
+        Ideal,
+        Thick,
+        Oppressive
+
+    }
+
+    public enum CelestialBodyAtmosphereType
+    {
+        ERROR,
+        NoAtmosphere,
+        Standard,
+        Tainted,
+        Exotic,
+        Corrosive,
+        Insidious
+
     }
 
     public class CelestialBody

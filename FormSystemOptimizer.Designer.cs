@@ -1,4 +1,4 @@
-﻿namespace HazeronProspector
+﻿namespace OpenShoresProspector
 {
     partial class FormSystemOptimizer
     {

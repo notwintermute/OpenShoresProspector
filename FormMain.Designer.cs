@@ -1,4 +1,6 @@
-﻿namespace HazeronProspector
+﻿using System.Drawing;
+
+namespace OpenShoresProspector
 {
     partial class FormMain
     {
@@ -39,6 +41,7 @@
             this.menuStrip1Options = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1OptionsShowHiddenRows = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1OptionsResetTableSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1OptionsRedact = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1Help = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpGithub = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1HelpThread = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +69,8 @@
             this.lblFilter = new System.Windows.Forms.Label();
             this.lblMinResourceQuality = new System.Windows.Forms.Label();
             this.nudMinResourceQuality = new System.Windows.Forms.NumericUpDown();
+            this.lblFilterOrbit = new System.Windows.Forms.Label();
+            this.cobFilterOrbit = new System.Windows.Forms.ComboBox();
             this.lblGalaxySelection = new System.Windows.Forms.Label();
             this.cobSelectionGalaxy = new System.Windows.Forms.ComboBox();
             this.btnImportMerger = new System.Windows.Forms.Button();
@@ -215,7 +220,8 @@
             // 
             this.menuStrip1Options.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuStrip1OptionsShowHiddenRows,
-            this.menuStrip1OptionsResetTableSettings});
+            this.menuStrip1OptionsResetTableSettings,
+            this.menuStrip1OptionsRedact});
             this.menuStrip1Options.Name = "menuStrip1Options";
             this.menuStrip1Options.Size = new System.Drawing.Size(61, 20);
             this.menuStrip1Options.Text = "Options";
@@ -233,6 +239,14 @@
             this.menuStrip1OptionsResetTableSettings.Size = new System.Drawing.Size(177, 22);
             this.menuStrip1OptionsResetTableSettings.Text = "Reset Table Settings";
             this.menuStrip1OptionsResetTableSettings.Click += new System.EventHandler(this.menuStrip1OptionsResetTableSettings_Click);
+            // 
+            // menuStrip1OptionsRedact
+            // 
+            this.menuStrip1OptionsRedact.CheckOnClick = true;
+            this.menuStrip1OptionsRedact.Name = "menuStrip1OptionsRedact";
+            this.menuStrip1OptionsRedact.Size = new System.Drawing.Size(177, 22);
+            this.menuStrip1OptionsRedact.Text = "Redact Info";
+            this.menuStrip1OptionsRedact.CheckedChanged += new System.EventHandler(this.menuStrip1OptionsRedact_CheckedChanged);
             // 
             // menuStrip1Help
             // 
@@ -327,7 +341,7 @@
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(3, 404);
+            this.btnSearch.Location = new System.Drawing.Point(3, 430);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(88, 21);
             this.btnSearch.TabIndex = 60;
@@ -419,6 +433,8 @@
             this.splitContainer1.Panel1.Controls.Add(this.lblFilter);
             this.splitContainer1.Panel1.Controls.Add(this.lblMinResourceQuality);
             this.splitContainer1.Panel1.Controls.Add(this.nudMinResourceQuality);
+            this.splitContainer1.Panel1.Controls.Add(this.lblFilterOrbit);
+            this.splitContainer1.Panel1.Controls.Add(this.cobFilterOrbit);
             this.splitContainer1.Panel1.Controls.Add(this.lblGalaxySelection);
             this.splitContainer1.Panel1.Controls.Add(this.cobSelectionGalaxy);
             this.splitContainer1.Panel1.Controls.Add(this.btnImportMerger);
@@ -431,6 +447,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.rabSelectionCoordinate);
             this.splitContainer1.Panel1.Controls.Add(this.cobSelectionSector);
             this.splitContainer1.Panel1.Controls.Add(this.rabSelectionDropdown);
+            this.splitContainer1.Panel1.AutoScroll = true;
             // 
             // splitContainer1.Panel2
             // 
@@ -443,7 +460,7 @@
             // 
             this.cbxOptionsSystemWide.AutoCheck = false;
             this.cbxOptionsSystemWide.AutoSize = true;
-            this.cbxOptionsSystemWide.Location = new System.Drawing.Point(3, 381);
+            this.cbxOptionsSystemWide.Location = new System.Drawing.Point(3, 407);
             this.cbxOptionsSystemWide.Name = "cbxOptionsSystemWide";
             this.cbxOptionsSystemWide.Size = new System.Drawing.Size(85, 17);
             this.cbxOptionsSystemWide.TabIndex = 50;
@@ -454,7 +471,7 @@
             // lblOptions
             // 
             this.lblOptions.AutoSize = true;
-            this.lblOptions.Location = new System.Drawing.Point(3, 365);
+            this.lblOptions.Location = new System.Drawing.Point(3, 391);
             this.lblOptions.Name = "lblOptions";
             this.lblOptions.Size = new System.Drawing.Size(46, 13);
             this.lblOptions.TabIndex = 1;
@@ -527,7 +544,7 @@
             // lblMinResourceQuality
             // 
             this.lblMinResourceQuality.AutoSize = true;
-            this.lblMinResourceQuality.Location = new System.Drawing.Point(3, 344);
+            this.lblMinResourceQuality.Location = new System.Drawing.Point(3, 334);
             this.lblMinResourceQuality.Name = "lblMinResourceQuality";
             this.lblMinResourceQuality.Size = new System.Drawing.Size(36, 13);
             this.lblMinResourceQuality.TabIndex = 45;
@@ -537,7 +554,7 @@
             // 
             this.nudMinResourceQuality.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudMinResourceQuality.Location = new System.Drawing.Point(42, 340);
+            this.nudMinResourceQuality.Location = new System.Drawing.Point(42, 330);
             this.nudMinResourceQuality.Maximum = new decimal(new int[] {
             255,
             0,
@@ -547,6 +564,26 @@
             this.nudMinResourceQuality.Size = new System.Drawing.Size(49, 20);
             this.nudMinResourceQuality.TabIndex = 46;
             this.nudMinResourceQuality.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lblFilterOrbit
+            // 
+            this.lblFilterOrbit.AutoSize = true;
+            this.lblFilterOrbit.Location = new System.Drawing.Point(3, 352);
+            this.lblFilterOrbit.Name = "lblFilterOrbit";
+            this.lblFilterOrbit.Size = new System.Drawing.Size(32, 13);
+            this.lblFilterOrbit.TabIndex = 47;
+            this.lblFilterOrbit.Text = "Orbit:";
+            // 
+            // cobFilterOrbit
+            // 
+            this.cobFilterOrbit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cobFilterOrbit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cobFilterOrbit.FormattingEnabled = true;
+            this.cobFilterOrbit.Location = new System.Drawing.Point(3, 368);
+            this.cobFilterOrbit.Name = "cobFilterOrbit";
+            this.cobFilterOrbit.Size = new System.Drawing.Size(88, 21);
+            this.cobFilterOrbit.TabIndex = 48;
             // 
             // lblGalaxySelection
             // 
@@ -686,11 +723,11 @@
             this.dgvSurveyColumnResourceSpices,
             this.dgvSurveyColumnResourceVegetable});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255,10,22,51); // The inside of the cells
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255,255,255,255); // The text of the cells
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255,102,148,242); // Inside of the cells when selected
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(255,0,0,0); // Text of the cells when selected
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSurvey.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSurvey.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1166,7 +1203,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
-            this.Text = "HazeronProspector";
+            this.Text = "OpenShoresProspector";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -1174,12 +1211,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinResourceQuality)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFilterWormhole)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFilterRange)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSurvey)).EndInit();
             this.cmsRightClick.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1227,6 +1259,8 @@
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.Label lblMinResourceQuality;
         private System.Windows.Forms.NumericUpDown nudMinResourceQuality;
+        private System.Windows.Forms.Label lblFilterOrbit;
+        private System.Windows.Forms.ComboBox cobFilterOrbit;
         private System.Windows.Forms.RadioButton rabFilterNone;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem cmsRightClickHideRow;
@@ -1235,6 +1269,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmsRightClickFreezeColumn;
         private System.Windows.Forms.ToolStripMenuItem menuStrip1OptionsResetTableSettings;
         private System.Windows.Forms.ToolStripMenuItem menuStrip1OptionsShowHiddenRows;
+        private System.Windows.Forms.ToolStripMenuItem menuStrip1OptionsRedact;
         private System.Windows.Forms.ToolStripMenuItem menuStrip1Debug;
         private System.Windows.Forms.ToolStripMenuItem menuStrip1DebugSystemOptimizer;
         private System.Windows.Forms.Button btnImportMerger;

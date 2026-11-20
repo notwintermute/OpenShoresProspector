@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace HazeronProspector
+namespace OpenShoresProspector
 {
     // Heavily based on: https://markheath.net/post/coord-performance-versus-readability
     public struct Coordinate : IEnumerable<double>, IEquatable<Coordinate>

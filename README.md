@@ -1,4 +1,4 @@
-HazeronProspector
+OpenShoresProspector
 ==============
 
 System survey XML search tool for [Shores of Hazeron](https://www.hazeron.com/) updated for [OpenShores](https://openshores.net/).
